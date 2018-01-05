@@ -32,5 +32,24 @@ module.exports = {
     }).catch(() => {
       cb('error')
     })
+  },
+  removeItemById(id, cb) {
+    Position.findByIdAndRemove(id, (err) => {
+      cb(err);
+    })
+  },
+  getPositionById(id, cb) {
+    Position.findById(id).then((result) => {
+      cb(result)
+    }).catch(() => {
+      cb('error')
+    })
+  },
+  updatePositionById(id, params, cb) {
+    Position.findByIdAndUpdate(id, params).then((result) => {
+      cb(result);
+    }).catch(() => {
+      cb("error")
+    })
   }
 }

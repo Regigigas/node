@@ -86,6 +86,7 @@ $.extend(AddPosition.prototype, {
     if (res && res.data && res.data.inserted){
       this.succNoticeElem.removeClass("hide");
       setTimeout($.proxy(this.handleDelay, this), 2000);
+      $(this).trigger("change");
     }
     console.log(res);
   },

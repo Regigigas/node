@@ -1,12 +1,10 @@
-function Page() {
-
-}
+function Page() { }
 
 $.extend(Page.prototype, {
   init: function () {
     this.createHeader();
     this.createAddPosition();
-    this.createPositionList();
+    this.createPositinList();
     this.createPagination();
   },
   createHeader: function () {
@@ -16,17 +14,25 @@ $.extend(Page.prototype, {
   createAddPosition: function () {
     var positionContainer = $(".js-container");
     this.addPosition = new AddPosition(positionContainer);
+    $(this.addPosition).on("change", $.proxy(this.handleAddPosition, this))
   },
-  createPositionList: function () {
+  createPositinList: function () {
     var positionContainer = $(".js-container");
-    this.PositionList = new PositionList(positionContainer);
-    $(this.PositionList).on('change', $.proxy(this.handleListChange, this))
+    this.positionList = new PositionList(positionContainer);
+    $(this.positionList).on("change", $.proxy(this.handleListChange, this))
   },
   createPagination: function () {
     var paginationContainer = $(".js-pagination");
     this.pagination = new Pagination(paginationContainer);
+    $(this.pagination).on("change", $.proxy(this.handlePaginationChange, this))
   },
   handleListChange: function (e) {
-    this.pagination.setTotal(e.total);
+    this.pagination.setTotal(e.total)
+  },
+  handlePaginationChange: function (e) {
+    this.positionList.changePage(e.page);
+  },
+  handleAddPosition: function () {
+    this.positionList.getListInfo();
   }
 })
